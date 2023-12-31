@@ -1,0 +1,13 @@
+<div
+  [ngStyle]="{ 'background-image': getCurrentCardUrl() }"
+  class="w-72 h-[75vh] overflow-hidden mx-auto relative top-15 border rounded-lg border-gray-300 bg-white shadow-md bg-cover bg-center"
+  [@cardAnimator]="animationState"
+  (@cardAnimator.done)="resetAnimationState($event)"
+  (swipeup)="startAnimation('swipeup')"
+  (swipeleft)="startAnimation('swipeleft')"
+  (swiperight)="startAnimation('swiperight')"
+>
+  <div class="bg-gray text-lg text-white absolute top-2 right-2 p-2 rounded-lg">
+    <i class="fa fa-heart"></i>
+  </div>
+</div>

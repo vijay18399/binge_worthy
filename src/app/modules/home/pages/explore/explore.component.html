@@ -1,0 +1,20 @@
+<div class=" h-[88vh] flex items-center justify-center overflow-hidden">
+  <div >
+    <app-tinder-card [parentSubject]="parentSubject"></app-tinder-card>
+    <div class="mt-4 flex justify-between">
+      <div (click)="cardAnimation('swipeleft')" class="p-2 bg-red-500 text-white rounded-full cursor-pointer">
+        <i class="fa-solid fa-thumbs-down"></i>
+        Dislike
+      </div>
+      <div (click)="cardAnimation('swipeup')" class="p-2 bg-blue-500 text-white rounded-full cursor-pointer">
+        <i class="fa fa-undo" aria-hidden="true"></i>
+        Skip
+      </div>
+      <div (click)="cardAnimation('swiperight')" class="p-2 bg-green-500 text-white rounded-full cursor-pointer">
+        <i class="fa-solid fa-thumbs-up"></i>
+        Like
+      </div>
+    </div>
+  </div>
+</div>
+

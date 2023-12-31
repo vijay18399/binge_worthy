@@ -1,0 +1,22 @@
+<div class="px-8" *ngIf="!loading && searchResults.length">
+  <div class="font-Okra font-bold text-lg leading-6 text-gray-800 my-6">
+    Search Results for "{{ searchText }}"
+  </div>
+
+  <div class="flex flex-wrap -mx-2">
+    <div *ngFor="let result of searchResults" routerLink="/content/{{result.id}}" class="flex-shrink-0 w-40 mx-2 mb-4 cursor-pointer">
+      <div class=" rounded-lg overflow-hidden">
+        <img class="w-full h-48 object-cover object-center rounded-t-md" [src]="result.poster" alt="{{ result.title }}" />
+        <div>
+          <div class="text-sm font-semibold line-clamp-2 mt-2">{{ result.title }}</div>
+          <div class="flex mt-1">
+            <span class="bg-gray-100 text-black px-2 py-1 text-xs font-bold rounded-md mr-2">Action</span>
+            <span class="bg-gray-100 text-black px-2 py-1 text-xs font-bold rounded-md mr-2">Thriller</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-loader *ngIf="loading"></app-loader>

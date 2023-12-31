@@ -1,0 +1,12 @@
+<div class="relative h-full">
+  <div>
+    <div (click)="goToPrevious()" class="absolute top-1/2 transform -translate-y-1/2 left-10 text-white text-5xl z-1 cursor-pointer">❰</div>
+    <div (click)="goToNext()" class="absolute top-1/2 transform -translate-y-1/2 right-10 text-white text-5xl z-1 cursor-pointer">❱</div>
+  </div>
+  <div class="w-full h-full rounded-2xl bg-cover bg-center" [ngStyle]="{ 'background-image': getCurrentSlideUrl() }"></div>
+  <div class="flex justify-center">
+    <div *ngFor="let slide of slides; let slideIndex = index" class="mx-3 cursor-pointer text-gray-800 text-2xl" [class.text-blue-800]="slideIndex == currentIndex" (click)="goToSlide(slideIndex)">
+      ●
+    </div>
+  </div>
+</div>

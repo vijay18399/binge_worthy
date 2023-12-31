@@ -1,0 +1,25 @@
+<nav class="flex items-center justify-between flex-wrap border-b border-gray-300 min-h-16">
+  <a class="text-lg ml-6 font-bold text-center text-violet" routerLink="/">BingeWorthy</a>
+
+  <div  *ngIf="!isSearchRouteActive" routerLink="/search" class="rounded h-10 w-72 bg-gray-100 cursor-pointer overflow-hidden relative">
+    <div class="p-0 mx-3 scroll-up">
+      <div class="flex items-center justify-start h-10 text-gray-300">search &nbsp; <span class="text-gray-500">"horror movies"</span></div>
+      <div class="flex items-center justify-start h-10 text-gray-300">search &nbsp; <span class="text-gray-500">"time travel movies"</span></div>
+      <div class="flex items-center justify-start h-10 text-gray-300">search &nbsp; <span class="text-gray-500">"dc movies"</span></div>
+      <div class="flex items-center justify-start h-10 text-gray-300">search &nbsp; <span class="text-gray-500">"marvel movies"</span></div>
+      <div class="flex items-center justify-start h-10 text-gray-300">search &nbsp; <span class="text-gray-500">"thor 4"</span></div>
+    </div>
+    <i class="fa fa-search"></i>
+  </div>
+
+  <div  *ngIf="isSearchRouteActive" class="relative w-72 ml-4">
+    <input  (click)="onSearchInputClick()"
+    (keyup.enter)="onSearchInputEnter()"  [(ngModel)]="searchText" placeholder="search for binge content" type="text" class="h-9 w-5/6 bg-white border border-gray-300 rounded-lg shadow-md pl-10 focus:outline-none">
+    <i class="fa fa-search absolute left-3 top-3"></i>
+  </div>
+
+  <ul class="flex justify-center">
+    <li class="font-bold text-sm text-black mr-2 cursor-pointer p-2" routerLink="/" routerLinkActive="bg-gray-900 text-white  rounded" [routerLinkActiveOptions]="{ exact: true }">Home</li>
+    <li  class="font-bold text-sm text-black mr-2 cursor-pointer p-2"  routerLink="explore" routerLinkActive="bg-gray-900 text-white rounded" [routerLinkActiveOptions]="{ exact: true }">Explore</li>
+  </ul>
+</nav>

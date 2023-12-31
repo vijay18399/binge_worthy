@@ -1,0 +1,74 @@
+<div class="bg-white shadow rounded title mb-4 p-3 text-lg font-medium flex justify-between">
+     <span>
+      Content List
+     </span>
+     <div class="flex items-center ">
+      <!-- Search Bar -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="border border-gray-300 rounded-md py-1 px-2 focus:outline-none focus:border-blue-500"
+          [(ngModel)]="searchTerm"
+          (keyenter)="applySearch()"
+        />
+        <span class="absolute right-2 top-2 text-gray-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-4-4m-2-2a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+ </div>
+ <div class="bg-white  rounded ">
+  <div class="overflow-x-auto shadow-lg">
+    <table class="min-w-full table-auto ">
+      <thead>
+        <tr class="text-gray-500">
+          <th class="uppercase text-left py-2 px-4">Content</th>
+          <th class="uppercase text-left py-2 px-4">Type</th>
+          <th class="uppercase text-left py-2 px-4">Status</th>
+          <th class="uppercase text-left py-2 px-4">Updated</th>
+          <th class="uppercase text-left py-2 px-4"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let content of paginatedContents" class="border-t border-b-gray-100">
+          <td routerLink="/admin/content-details/{{content.id}}" class="flex px-4 py-2 cursor-pointer">
+            <div class="flex flex-col content-center pl-4">
+              <h6 class="font-extrabold text-xs text-[#344767]">{{content.title}}</h6>
+              <p class="text-xs text-[#7b809a]">{{content.director}}</p>
+            </div>
+          </td>
+          <td class="text-sm"><span class="uppercase bg-slate-800 text-white text-xs p-0.5 rounded-sm">{{content.type}}</span></td>
+          <td>
+            <span class="uppercase bg-green-600 text-white text-xs p-0.5 rounded-sm">published</span>
+          </td>
+          <td class="text-sm text-[#7b809a]">{{content.lastUpdate}}</td>
+          <td>
+            <button routerLink="/admin/edit-content/{{content.id}}" class="text-[#a7aabb]">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="flex justify-end mt-4">
+    <app-pagination
+    [totalItems]="contents.length"
+    [pageSize]="pageSize"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+  </div>
+</div>

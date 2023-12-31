@@ -1,0 +1,40 @@
+<div class="mt-6 w-max relative border border-[#ddd] rounded-lg">
+  <div class="p-4 border-b border-gray-300">{{itemFor}}s</div>
+  <section class="flex m-4 gap-4">
+    <div class="flex w-full items-center gap-3">
+      <div class="flex flex-col w-full">
+        <label class="font-bold text-sm mb-2 text-[#364152]" [for]="itemFor">{{itemFor}}
+        </label>
+        <input
+          (keyup)="onKeyUp($event)"
+          (keyup.enter)="onEnter()"
+          [(ngModel)]="input"
+          type="text"
+          class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600"
+          placeholder="Enter {{itemFor}} and click add"
+          type="text"
+        />
+      </div>
+      <button class="bg-green-200 text-green-950 rounded-lg w-9 h-9 flex items-center justify-center disabled:bg-gray-300 disabled:text-black" (click)="addInput()" [disabled]="!input"> <i  class="fa fa-plus "></i>
+      </button>
+    </div>
+  </section>
+  <div class="flex flex-wrap min-h-6">
+    <span class="bg-[#E3F2FD] text-blue-500 text-sm rounded m-2 p-2" *ngFor="let chipInput of chipInputs; let i = index">
+      {{ chipInput }}
+      <i class="fa-solid fa-circle-minus" (click)="removeInput(i)"></i
+    ></span>
+  </div>
+  <div
+    class="hidden  flex-col p-4 rounded border-slate-700 border bg-[#f8fafc] mx-4"
+    *ngIf="showSuggestions && filteredSuggestions.length"
+  >
+    <div
+    class="text-gray-800 py-2 border-b  cursor-pointer"
+      *ngFor="let suggestion of filteredSuggestions"
+      (click)="addInput(suggestion)"
+    >
+      {{ suggestion }}
+    </div>
+  </div>
+</div>

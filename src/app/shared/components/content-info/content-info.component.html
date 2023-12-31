@@ -1,0 +1,54 @@
+<div *ngIf="content" class="flex">
+  <img class="w-72 h-full border-r border-gray-200" [src]="content.poster || 'assets/images/no-poster.jpg'" alt="">
+  <div class="flex flex-col sticky top-0 pt-8 pl-8 w-full">
+    <h2 class="text-2xl font-bold text-black mb-4">{{ content.title }}</h2>
+    <div class="mb-4">
+      <span *ngFor="let genre of content.genres" class="inline-flex items-center m-2 p-2 rounded-md font-medium text-gray-700 bg-gray-100">{{ genre }}</span>
+    </div>
+    <p class="mb-8">{{ content.plot }}</p>
+    <div class="mb-8">
+      <div *ngIf="content.tags.length" class="flex mb-4">
+        <span class="font-bold mr-2">Tags:</span>
+        <span class="flex flex-wrap">
+          <span *ngFor="let tag of content.tags" class="inline-flex items-center m-1 p-2 rounded-md text-gray-700 bg-gray-100">{{ tag }}</span>
+        </span>
+      </div>
+      <div *ngIf="content.releaseDate" class="flex">
+        <span class="font-bold mr-2">Release Date:</span>
+        <span>{{ content.releaseDate | date:'medium' }}</span>
+      </div>
+    </div>
+    <div *ngIf="content.actors.length" class="flex flex-wrap mb-8">
+      <div *ngFor="let actor of content.actors" class="flex items-center mr-4 mb-4">
+        <img [src]="actor.profile || 'assets/images/default-profile.png'" alt="" class="w-10 h-10 rounded-full object-cover mr-2">
+        <span class="text-sm">{{ actor.name }}</span>
+      </div>
+    </div>
+    <div class="mb-8">
+      <div class="flex mb-4">
+        <div class="flex">
+          <button   [ngClass]="{'bg-blue-500': season.number == activeSeason.number, 'bg-gray-500': season.number != activeSeason.number}"  *ngFor="let season of content.seasons; let i = index" (click)="toggleSeason(i)" class="px-4 py-2 mr-2 rounded-md text-white font-semibold ">{{ 'Season ' + (i + 1) }}</button>
+        </div>
+      </div>
+      <div *ngIf="activeSeason" class="mb-4">
+        <div>
+          <p *ngIf="activeSeason.description" class="border-2 border-dotted border-indigo-700 p-4 rounded-md bg-indigo-100">{{ activeSeason.description }}</p>
+          <!-- Episodes List -->
+          <ul class="list-none p-0 m-0">
+            <li *ngFor="let episode of activeSeason.episodes; let i = index" class="border-2 border-solid border-gray-300 rounded-md p-4 mt-4">
+              <div class="flex justify-between mb-2">
+                <span>{{ 'S' + activeSeason.number + 'E' + (i + 1) }}</span>
+                <span>
+                  <i class="fa-solid fa-calendar-days"></i>
+                  5 Mar 2021
+                </span>
+              </div>
+              <h2 class="text-lg font-semibold mb-2">{{ episode.title }}</h2>
+              <p>{{ episode.description }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

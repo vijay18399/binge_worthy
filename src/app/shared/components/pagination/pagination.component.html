@@ -1,0 +1,29 @@
+<div class="flex justify-center items-center">
+  <button
+    (click)="gotToPage(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="px-3 py-2 border border-gray-300 rounded-l-md cursor-pointer focus:outline-none"
+  >
+    Previous
+  </button>
+
+  <div class="mx-4">
+    Page {{ currentPage }} of {{ totalPages }}
+  </div>
+
+  <button
+    (click)="gotToPage(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="px-3 py-2 border border-gray-300 rounded-r-md  cursor-pointer focus:outline-none"
+  >
+    Next
+  </button>
+
+  <div class="ml-auto">
+    <select [value]="currentPage" (change)="changePage($event)" class="px-3 py-2 border border-gray-300  cursor-pointer focus:outline-none">
+      <option *ngFor="let page of pageList" [value]="page">
+        {{ page }}
+      </option>
+    </select>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="bg-white shadow rounded title mb-4 p-3 text-lg font-medium">
+  Create Content
+</div>
+<div class="bg-white shadow rounded container p-4 mx-auto">
+  <div class="flex border-b-gray-200 border-b justify-between">
+     <div class="flex ">
+      <div (click)="selectedTab = 'contentInfo'" [ngClass]="{ 'text-[#3577da] border-b-2 border-blue-500': selectedTab === 'contentInfo' }"  class="cursor-pointer px-2 py-3 text-[#364152] font-bold  ">
+        Overview
+      </div>
+      <div (click)="selectedTab = 'castInfo'"  [ngClass]="{ 'text-[#3577da] border-b-2 border-blue-500': selectedTab === 'castInfo' }" class="cursor-pointer px-2 py-3 text-[#364152] font-bold">
+        Cast & Director
+      </div>
+      <div (click)="selectedTab = 'addionalInfo'"  [ngClass]="{ 'text-[#3577da] border-b-2 border-blue-500': selectedTab === 'addionalInfo' }" class="cursor-pointer px-2 py-3 text-[#364152] font-bold">
+        Additional Details
+      </div>
+
+      <div (click)="selectedTab = 'seasonInfo'"  [ngClass]="{ 'text-[#3577da] border-b-2 border-blue-500': selectedTab === 'seasonInfo' }" *ngIf="content.type === 'series'"  class="cursor-pointer px-2 py-3 text-[#364152] font-bold">
+        Season Info
+      </div>
+     </div>
+      <div>
+        <button (click)="onSubmit()" type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Submit</button>
+      </div>
+  </div>
+  <div *ngIf="selectedTab == 'contentInfo'" class="flex flex-col px-8">
+    <section class="pt-6 flex mb-4 gap-4">
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="title">Content Title *</label>
+        <input class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Title text" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Content Title is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="title">Content Slug *</label>
+        <input class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Content slug" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Content Title is Required</span> -->
+      </div>
+    </section>
+    <hr class="border-gray-300">
+    <section class="pt-6 flex mb-4 gap-4">
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="content-type">Content Type *</label>
+        <select [(ngModel)]="content.type" class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600">
+          <option value="movie">Movie</option>
+          <option value="series">Series</option>
+          <option value="shortfilm">Short Film</option>
+        </select>
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Content Type is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="poster-url">Poster URL *</label>
+        <input class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Poster URL" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Poster URL is Required</span> -->
+      </div>
+    </section>
+    <hr class="border-gray-300">
+    <section class="pt-6 flex mb-4 gap-4">
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="release-date">Release Date *</label>
+        <input class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" type="date">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Release Date is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="plot">Plot *</label>
+        <textarea class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Plot" rows="4"></textarea>
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Plot is Required</span> -->
+      </div>
+    </section>
+
+  </div>
+  <div *ngIf="selectedTab == 'addionalInfo'" class="flex flex-wrap gap-4 px-8">
+    <chip-input [chipInputs]="content.genres" [itemFor]="'Genre'" (inputChange)="updateGenres($event)">
+    </chip-input>
+    <chip-input [chipInputs]="content.tags" [itemFor]="'Tag'" (inputChange)="updateTags($event)">
+    </chip-input>
+  </div>
+  <div *ngIf="selectedTab == 'castInfo'" class="flex flex-col px-8">
+    <section class="pt-6 flex mb-4 gap-4">
+
+      <chip-input [chipInputs]="content.actors" [itemFor]="'Actor'" (inputChange)="updateActors($event)">
+      </chip-input>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="director">Director *</label>
+        <input class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Director" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Director is Required</span> -->
+      </div>
+    </section>
+  </div>
+  <div *ngIf="selectedTab == 'seasonInfo'" class="flex flex-col px-8">
+   <section class="pt-6 flex mb-4  gap-4">
+    <div class="flex flex-col w-1/3">
+      <label class="font-bold text-sm mb-2 text-[#364152]" for="director">Season Count  *</label>
+      <number-input  (valueChange)="updateSeasonCount($event)" [value]="content.seasonCount" ></number-input>
+    </div>
+   </section>
+    <div class="flex flex-wrap">
+      <div [class.bg-green-100]="activeSeason == i" (click)="activeSeason = i" *ngFor="let season of content.seasons; let i = index" class="flex justify-center items-center m-2 rounded w-10 h-10 cursor-pointer bg-blue-200 text-blue-800 ">
+        {{season.number}}
+        <!-- <span *ngIf="content.seasons.length == i+1" class="text-white flex items-center justify-center absolute -right-2 -top-2 bg-red-700 w-4 h-4" (click)="deleteSeason(i)">x</span> -->
+      </div>
+    </div>
+<div *ngIf="content.seasons.length">
+  <div class="mb-4">
+    <div class="font-bold text-lg  text-[#364152]">Season {{content.seasons[activeSeason].number}} </div>
+    <section class="pt-6 flex mb-4  gap-4">
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="actors">Description *</label>
+        <input  [(ngModel)]="content.seasons[activeSeason].description" class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Enter Description" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Description is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="director">Poster *</label>
+        <input  [(ngModel)]="content.seasons[activeSeason].poster"  class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Enter  Poster Url" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Poster is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="director">Episode Count {{content.seasons[activeSeason].episodeCount}} *</label>
+        <number-input  (valueChange)="updateEpisodeCount($event)" [value]="content.seasons[activeSeason].episodeCount" ></number-input>
+      </div>
+    </section>
+    <div class="font-bold text-lg  text-[#364152] hidden">Episodes</div>
+  <div *ngFor="let episode of content.seasons[activeSeason].episodes; let j = index">
+    <label class="block text-sm font-bold text-gray-700">Episode {{ episode.number }}</label>
+    <section  class="pt-6 flex  gap-4">
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="actors">Title *</label>
+        <input  [(ngModel)]="episode.title" class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Title" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Title is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="actors">Description *</label>
+        <input  [(ngModel)]="episode.description" class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Description" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Description is Required</span> -->
+      </div>
+      <div class="flex flex-col w-1/3">
+        <label class="font-bold text-sm mb-2 text-[#364152]" for="director">Poster *</label>
+        <input  [(ngModel)]="episode.poster"  class="w-full font-medium text-gray-500 bg-[#f8fafc] p-4 rounded-md focus:outline-blue-600" placeholder="Poster" type="text">
+        <!-- <span class="text-[#f44336] mx-4 my-2 text-xs font-normal">Poster is Required</span> -->
+      </div>
+    </section>
+  </div>
+  </div>
+</div>
+
+  </div>
+
+</div>
